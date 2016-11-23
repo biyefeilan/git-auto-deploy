@@ -25,13 +25,13 @@ cd hooks
 touch post-receive
 echo "#!/bin/sh
 git --work-tree=$work_dir/$deploy_name --git-dir=$repo_dir/$repo_name.git checkout -f
-chown -R www-data.www-data $work_dir/$deploy_name && find $work_dir/$deploy_name/App/Runtime -type d -exec chmod g+w {} \;" >> post-receive
+chown -R www-data.www-data $work_dir/$deploy_name && find $work_dir/$deploy_name/App/Runtime -type d -exec chmod g+s {} \;" >> post-receive
 
 chmod +x post-receive
 
 chown -R git.git $repo_dir/$repo_name.git
 cd $work_dir
-# mkdir $deploy_name
+mkdir $deploy_name && chown -R www-data.www-data $deploy_name && chmod g+ws $deploy_name
 
 echo "Task completed successfully.";
 echo "Your git directory $repo_dir/$repo_name.git";
