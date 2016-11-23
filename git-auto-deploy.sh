@@ -4,15 +4,24 @@ repo_dir=/repo/git
 work_dir=/var/www/html
 
 # Ask for input for repository name
-echo "Enter repository name: "
-read repo_name
+repo_name=$1
+if [ -z $repo_name ]; then 
+    echo "Enter repository name: "
+    read repo_name
+    if [ -z $repo_name ]; then
+        echo "Repository name required!"
+        exit 1
+    fi
+fi
 
 # Ask for input for deploy name
-echo "Enter deploy name[$repo_name]: "
-read deploy_name
-
+deploy_name=$2
 if [ -z $deploy_name ]; then
-    deploy_name=$repo_name
+    echo "Enter deploy name[$repo_name]: "
+    read deploy_name
+    if [ -z $deploy_name ]; then
+        deploy_name=$repo_name
+    fi
 fi
 
 cd $repo_dir
